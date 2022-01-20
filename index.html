@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>kode24 patreons til nyhetsbrev</title>
+    </head>
+
+    <body>
+        <div id="content-gold"></div>
+        <div id="content-silver"></div>
+    </body>
+    
+    <style>
+        body {
+            background-color: hsl(210, 4%, 10%);
+            text-align: center;
+            padding: 20px;
+        }
+
+        #content-gold {
+            margin-bottom: 20px;
+        }
+
+        #content-gold img {
+            width: 600px;
+            padding: 20px;
+        }
+
+        #content-silver img  {
+            width: 250px;
+            padding: 20px;
+        }
+
+    </style>
+
+    <script>
+        const content_gold = document.getElementById("content-gold")
+        const content_silver = document.getElementById("content-silver")
+
+        fetch('https://functions.kode24.no/api/sponsors')
+            .then(response => response.json())
+            .then((data) => {
+                for (var item in data.gold) { // 🥇
+                    content_gold.innerHTML += "<img src='" + data.gold[item].logo  + "'></img>"
+                }
+
+                for (var item in data.silver) { // 🥈
+                    if(data.silver[item].name != "Nissen") { // 👎🎅
+                        content_silver.innerHTML += "<img src='" + data.silver[item].logo  + "'></img>"
+                    } 
+                }
+            })
+    </script>
+</html>
